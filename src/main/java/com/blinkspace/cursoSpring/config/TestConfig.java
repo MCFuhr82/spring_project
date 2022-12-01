@@ -1,8 +1,10 @@
 package com.blinkspace.cursoSpring.config;
 
+import com.blinkspace.cursoSpring.entities.Category;
 import com.blinkspace.cursoSpring.entities.Order;
 import com.blinkspace.cursoSpring.entities.User;
 import com.blinkspace.cursoSpring.entities.enums.OrderStatus;
+import com.blinkspace.cursoSpring.repositories.CategoryRepository;
 import com.blinkspace.cursoSpring.repositories.OrderRepository;
 import com.blinkspace.cursoSpring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -33,6 +38,11 @@ public class TestConfig implements CommandLineRunner {
         Order o2 = new Order(null, Instant.parse("2022-11-20T15:23:25Z"), OrderStatus.DELIVERED, u2);
         Order o3 = new Order(null, Instant.parse("2022-11-25T15:23:25Z"), OrderStatus.SHIPPED, u1);
 
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
     }
